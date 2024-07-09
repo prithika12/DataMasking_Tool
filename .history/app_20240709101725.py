@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory, send_file, after_this_request
+from flask import Flask, request, render_template, send_file, after_this_request
 import pandas as pd
 import os
 
@@ -17,7 +17,7 @@ def mask_data(input_file, output_file):
 
 @app.route('/')
 def upload_file():
-    return send_from_directory('', 'index.html')
+    return render_template('index.html')
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def uploader():

@@ -1,6 +1,7 @@
-from flask import Flask, request, send_from_directory, send_file, after_this_request
+from flask import Flask, request, send_file, render_template_string
 import pandas as pd
 import os
+import shutil
 
 app = Flask(__name__)
 
@@ -17,7 +18,9 @@ def mask_data(input_file, output_file):
 
 @app.route('/')
 def upload_file():
-    return send_from_directory('', 'index.html')
+    with open('index.html') as f:
+        html_content = f.read()
+    return render_template_string(html_content)
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def uploader():
@@ -26,21 +29,22 @@ def uploader():
         input_path = os.path.join('uploads', f.filename)
         output_path = os.path.join('uploads', 'masked_' + f.filename)
         
+        if not os.path.exists('uploads'):
+            os.makedirs('uploads')
+
         f.save(input_path)
         mask_data(input_path, output_path)
-
+        
         @after_this_request
-        def remove_file(response):
+        def cleanup(response):
             try:
-                os.remove(input_path)
-                os.remove(output_path)
-            except Exception as error:
-                app.logger.error("Error removing file: %s", error)
+                if os.path.exists('uploads'):
+                    shutil.rmtree('uploads')
+            except Exception as e:
+                app.logger.error(f'Error deleting uploads directory: {e}')
             return response
         
         return send_file(output_path, as_attachment=True)
-    
+
 if __name__ == '__main__':
-    if not os.path.exists('uploads'):
-        os.makedirs('uploads')
     app.run(debug=True)
