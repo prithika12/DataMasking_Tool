@@ -1,6 +1,8 @@
 from flask import Flask, request, send_from_directory, send_file, after_this_request
 import pandas as pd
 import os
+
+# Add this line at the top, below other imports
 from flask import send_from_directory
 
 app = Flask(__name__)
@@ -41,7 +43,7 @@ def uploader():
         
         return send_file(output_path, as_attachment=True)
 
-#CSS file
+# Add this route to serve CSS file
 @app.route('/styles.css')
 def serve_css():
     return send_from_directory('', 'styles.css')

@@ -41,7 +41,7 @@ def uploader():
         
         return send_file(output_path, as_attachment=True)
 
-#CSS file
+# Add this route to serve CSS file
 @app.route('/styles.css')
 def serve_css():
     return send_from_directory('', 'styles.css')
