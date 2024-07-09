@@ -17,6 +17,7 @@ body {
 }
 h1 {
     text-align: center; /* Center text */
+    margin-top: 0; /* Remove default margin */
     margin-bottom: 30px;
 }
 h2 {
@@ -52,5 +53,8 @@ button:hover {
     color: #070708;
     font-size: x-large;
     font-weight: bold;
+    text-decoration: underline;
+}
+.about-link a:hover {
     text-decoration: underline;
 }
