@@ -1,44 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Masking Tool</title>
+    <h1>Data Masking Tool</h1>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0px;
-            padding: 0;
-            display: flex;
-            flex-direction: column; /* Align items in a column */
-            justify-content: center; /* Center vertically */
-            align-items: center; /* Center horizontally */
-            height: 80vh; /* Full viewport height */
+            margin: 50px;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
         }
         .container {
             max-width: 600px;
-            padding: 40px;
+            margin: 0 auto;
+            padding: 20px;
             background-color: #f2f2f2;
             border: 1px solid #ccc;
             border-radius: 5px;
-            text-align: center; /* Center text inside container */
         }
-        h1 {
-            text-align: center; /* Center text */
-            margin-top: 0; /* Remove default margin */
-            margin-bottom: 30px;
-        }
-        h2 {
+        h1, h2 {
             text-align: center;
         }
+
         input[type="file"] {
             display: block;
-            font-size: medium;
             margin: 20px auto;
         }
         button {
             display: block;
             margin: 20px auto;
-            font-size: medium;
-            margin-top: 35px;
             padding: 10px 20px;
             background-color: #28a745;
             color: white;
@@ -57,7 +46,7 @@
         }
         .about-link a {
             color: #070708;
-            font-size: x-large;
+            font-size:x-large;
             text-decoration: underline;
         }
         .about-link a:hover {
@@ -66,7 +55,6 @@
     </style>
 </head>
 <body>
-    <h1>Data Masking Tool</h1>
     <div class="container">
         <h2>Upload Excel File for Data Masking</h2>
         <form action="/uploader" method="post" enctype="multipart/form-data">

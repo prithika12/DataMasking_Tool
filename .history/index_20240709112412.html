@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>Data Masking Tool</h1>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h2 {
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px auto;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Excel File for Data Masking</h2>
+        <form action="/uploader" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".xlsx">
+            <button type="submit">Upload and Mask Data</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Masking Tool</title>
+    <h1>Data Masking Tool</h1>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0px;
+            margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column; /* Align items in a column */
-            justify-content: center; /* Center vertically */
-            align-items: center; /* Center horizontally */
-            height: 80vh; /* Full viewport height */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
         }
         .container {
             max-width: 600px;
-            padding: 40px;
+            padding: 20px;
             background-color: #f2f2f2;
             border: 1px solid #ccc;
             border-radius: 5px;
-            text-align: center; /* Center text inside container */
         }
-        h1 {
-            text-align: center; /* Center text */
-            margin-top: 0; /* Remove default margin */
-            margin-bottom: 30px;
-        }
-        h2 {
+        h1, h2 {
             text-align: center;
         }
         input[type="file"] {
             display: block;
-            font-size: medium;
             margin: 20px auto;
         }
         button {
             display: block;
             margin: 20px auto;
-            font-size: medium;
-            margin-top: 35px;
             padding: 10px 20px;
             background-color: #28a745;
             color: white;
@@ -66,8 +56,8 @@
     </style>
 </head>
 <body>
-    <h1>Data Masking Tool</h1>
     <div class="container">
+        <h1>Data Masking Tool</h1>
         <h2>Upload Excel File for Data Masking</h2>
         <form action="/uploader" method="post" enctype="multipart/form-data">
             <input type="file" name="file" accept=".xlsx">
