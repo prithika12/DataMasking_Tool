@@ -12,16 +12,13 @@ def mask_data(input_file, output_file):
     # Function to mask individual data values
     def mask_value(value):
         if isinstance(value, str):
-            # Masking based on character types
-            masked = []
-            for char in value:
-                if char.isalpha():
-                    masked.append('X')
-                elif char.isdigit():
-                    masked.append('#')
-                else:
-                    masked.append(char)
-            return ''.join(masked)
+            # Count letters and digits
+            letters = sum(c.isalpha() for c in value)
+            digits = sum(c.isdigit() for c in value)
+
+            # Mask letters with 'X' and digits with '#'
+            masked = 'X' * letters + '#' * digits
+            return masked if masked else value
         elif isinstance(value, (int, float)):
             # Convert numbers to string and mask
             return '#' * len(str(value))
