@@ -49,11 +49,11 @@ def upload_file():
 @app.route('/uploader', methods=['GET', 'POST'])
 def uploader():
     if request.method == 'POST':
-        metadata_file = request.files['file1']
-        data_file = request.files['file2']
+        metadata_file = request.files['metadata_file']
+        data_file = request.files['data_file']
 
-        metadata_path = os.path.join('uploads', 'metadata_file.xlsx')
-        data_path = os.path.join('uploads', 'data_file.xlsx')
+        metadata_path = os.path.join('uploads', metadata_file.filename)
+        data_path = os.path.join('uploads', data_file.filename)
 
         metadata_file.save(metadata_path)
         data_file.save(data_path)

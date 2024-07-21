@@ -10,10 +10,10 @@
         <h2>Upload Excel Files for Data Masking</h2>
         <form action="/uploader" method="post" enctype="multipart/form-data">
             <label for="metadata_file">Metadata File:</label>
-            <input type="file" name="file1" accept=".xlsx" required>
+            <input type="file" name="metadata_file" accept=".xlsx" required>
             <br><br>
             <label for="data_file">Data File:</label>
-            <input type="file" name="file2" accept=".xlsx" required>
+            <input type="file" name="data_file" accept=".xlsx" required>
             <br><br>
             <button type="submit">Upload and Mask Data</button>
         </form>
