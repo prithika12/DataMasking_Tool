@@ -13,9 +13,6 @@ logging.basicConfig(level=logging.INFO)
 
 fake = Faker()
 
-# List of common domain suffixes
-domain_suffixes = ['com', 'org', 'net', 'edu', 'gov', 'io', 'info', 'biz']
-
 # Mapping of attribute names to Faker methods
 faker_methods = {
     'name': fake.first_name,
@@ -48,10 +45,10 @@ def mask_value(value, column_name):
                     # Generate parts using Faker
                     fake_local = fake.user_name()[:len(local_part)]
                     fake_domain = fake.domain_name().split('.')[0][:len(domain)]
-                    fake_ext = random.choice(domain_suffixes)[:len(ext)]
+                    fake_ext = fake.domain_suffix().lstrip('.')
                     
                     # Construct new email with similar structure
-                    faker_value = f"{fake_local}@{fake_domain}.{fake_ext}"
+                    faker_value = f"{fake_local}@{fake_domain}.{fake_ext[:len(ext)]}"
                     
                     # Ensure the format is preserved
                     return ''.join(

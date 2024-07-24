@@ -13,9 +13,6 @@ logging.basicConfig(level=logging.INFO)
 
 fake = Faker()
 
-# List of common domain suffixes
-domain_suffixes = ['com', 'org', 'net', 'edu', 'gov', 'io', 'info', 'biz']
-
 # Mapping of attribute names to Faker methods
 faker_methods = {
     'name': fake.first_name,
@@ -39,26 +36,6 @@ def mask_value(value, column_name):
     # Find a matching Faker method based on column name
     for key, faker_method in faker_methods.items():
         if key in normalized_column_name:
-            if key == 'email':
-                # Extract parts of the original email
-                if isinstance(value, str) and '@' in value:
-                    local_part, domain_part = value.split('@', 1)
-                    domain, ext = domain_part.rsplit('.', 1)
-                    
-                    # Generate parts using Faker
-                    fake_local = fake.user_name()[:len(local_part)]
-                    fake_domain = fake.domain_name().split('.')[0][:len(domain)]
-                    fake_ext = random.choice(domain_suffixes)[:len(ext)]
-                    
-                    # Construct new email with similar structure
-                    faker_value = f"{fake_local}@{fake_domain}.{fake_ext}"
-                    
-                    # Ensure the format is preserved
-                    return ''.join(
-                        f_char if f_char.isalpha() or f_char in '@._-' else random.choice(string.ascii_lowercase)
-                        for f_char in faker_value
-                    )
-            
             faker_value = faker_method()
             # Ensure faker_value matches the length of the original value
             if isinstance(value, str):
@@ -67,6 +44,12 @@ def mask_value(value, column_name):
                 elif len(faker_value) > len(value):
                     faker_value = faker_value[:len(value)]
                 # Preserve original letter case in Faker-generated values
+                if key == 'email' and not any(char.isdigit() for char in value):
+                    # Ensure email does not have numbers if the original does not
+                    faker_value = ''.join(
+                        f_char if f_char.isalpha() or f_char in '@._-' else random.choice(string.ascii_lowercase)
+                        for f_char in faker_value
+                    )
                 return ''.join(
                     f_char.upper() if o_char.isupper() else f_char.lower()
                     for o_char, f_char in zip(value, faker_value)
@@ -92,6 +75,8 @@ def mask_value(value, column_name):
         return generate_random_string(len(str(value)), string.digits)
     else:
         return value
+
+
 
 def mask_data(metadata_file, data_file):
     metadata_df = pd.read_excel(metadata_file)
