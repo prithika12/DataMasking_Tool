@@ -37,13 +37,8 @@ def mask_value(value, column_name):
     for key, faker_method in faker_methods.items():
         if key in normalized_column_name:
             faker_value = faker_method()
-            # Ensure faker_value matches the length of the original value
+            # Preserve original letter case in Faker-generated values
             if isinstance(value, str):
-                if len(faker_value) < len(value):
-                    faker_value = faker_value.ljust(len(value), 'x')
-                elif len(faker_value) > len(value):
-                    faker_value = faker_value[:len(value)]
-                # Preserve original letter case in Faker-generated values
                 return ''.join(
                     f_char.upper() if o_char.isupper() else f_char.lower()
                     for o_char, f_char in zip(value, faker_value)
@@ -52,7 +47,6 @@ def mask_value(value, column_name):
     
     # Default masking behavior for other types
     if isinstance(value, str):
-        # Ensure the masked value has the same length and format
         masked = []
         for char in value:
             if char.isalpha():
@@ -64,12 +58,11 @@ def mask_value(value, column_name):
                 masked.append(random.choice(string.digits))
             else:
                 masked.append(char)
-        return ''.join(masked).ljust(len(value), 'x')[:len(value)]
+        return ''.join(masked)
     elif isinstance(value, (int, float)):
         return generate_random_string(len(str(value)), string.digits)
     else:
         return value
-
 
 def mask_data(metadata_file, data_file):
     metadata_df = pd.read_excel(metadata_file)
