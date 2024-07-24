@@ -39,7 +39,7 @@ def mask_value(value, column_name):
             # Ensure faker_value matches the length of the original value
             if isinstance(value, str):
                 if len(faker_value) < len(value):
-                    faker_value = faker_value.ljust(len(value), 'a')
+                    faker_value = faker_value.ljust(len(value), 'x')
                 elif len(faker_value) > len(value):
                     faker_value = faker_value[:len(value)]
                 # Preserve original letter case in Faker-generated values
@@ -63,7 +63,7 @@ def mask_value(value, column_name):
                 masked.append(random.choice(string.digits))
             else:
                 masked.append(char)
-        return ''.join(masked).ljust(len(value), 'a')[:len(value)]
+        return ''.join(masked).ljust(len(value), 'x')[:len(value)]
     elif isinstance(value, (int, float)):
         return generate_random_string(len(str(value)), string.digits)
     else:
